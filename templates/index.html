@@ -32,27 +32,31 @@
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-              <form>
+              <form action='{% url 'homepage' %}' method="POST" >
+                {% csrf_token %} 
 
                 <div class="form-outline mb-4">
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example1cg">Your Name</label>
+                  {{ form.username }}
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example3cg">Your Email</label>
+                  {{ form.first_name }}
+                </div>
+                <div class="form-outline mb-4">
+                  {{ form.last_name }}
+                </div>
+                <div class="form-outline mb-4">
+                  {{ form.email }}
+                </div>
+                
+                <div class="form-outline mb-4">
+                  {{ form.password }}
+
+                </div>
+                <div class="form-outline mb-4">
+                  {{ form.confrim_password}}
                 </div>
 
-                <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cg">Password</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                </div>
 
                 <div class="form-check d-flex justify-content-center mb-5">
                   <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
@@ -62,8 +66,8 @@
                 </div>
 
                 <div class="d-flex justify-content-center">
-                  <button type="button"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                  <input type="submit" value="Submit">
+                  
                 </div>
 
                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!"
