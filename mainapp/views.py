@@ -1,28 +1,60 @@
-from django.shortcuts import render,redirect
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect, render
 
 from .forms import UserRgistrationForm
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.models import User
+from django.contrib import messages
+
 # Create your views here.
 
 def SingUp(request):
     if request.method == 'POST':
         form = UserRgistrationForm(request.POST)
-        print("post")
-        if form.is_valid():
-            print("Rgister page  save before")
-            form.save()
-            print("Rgister page ")
-            # return HttpResponseRedirect(reverse('user_login:login'))
+
+        first_name=request.POST['first_name']
+        last_name=request.POST['last_name']
+        username=request.POST['username']
+        email=request.POST['email']
+        password=request.POST['password']
+        confrim_password=request.POST['confrim_password']
+        if password == confrim_password:
+            if User.objects.filter(username=username).exists():
+                messages.error(request,'username Already  taken ')
+                # return redirect('register')
+            elif User.objects.filter(email=email).exists():
+                messages.error(request,'email Already taken')
+                # return redirect('register')
+
+            elif form.is_valid():
+            # ei vabe save korle 
+            #Invalid password format or unknown hashing algorithm.
+            # form.save()
+            # so ei vabe save korlam 
+            # first_name=form.cleaned_data['first_name']
+                user=User.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=password)
+                user.is_staff=True
+                user.save() 
+                messages.info(request,'successfully create your account ')
+                return redirect('login')
+           
+            else:
+                print("invalid")
+                print(form.errors)
+            # ei khane redireect kora jabe na ...korle problem hobe 
+            
+          
         else:
-            print("invalid")
-            print(form.errors)
+            messages.info(request,'password not matching ')
+            # return redirect('register')
+
+
          
     else:
         form = UserRgistrationForm()
     data = {
         "form": form,
     }
-    return render(request, 'register.html', data)
+    return render(request, 'mainapp/register.html', data)
 
 
 def Login(request):
@@ -34,15 +66,14 @@ def Login(request):
          # is_activate is ture then login 
         if user is not None:
             login(request, user)
-            print("successfully login ")
+            messages.success(request, 'successfully Login your account .')
             return redirect('dashboard')
         # Redirect to a success page.
         else:
-            print("user is not found ")
-            # messages.error(request, 'email or password not match . please try again !')
+            messages.error(request, 'email or password not match . please try again !')
             return redirect('login')
     
-    return render(request, 'login.html')
+    return render(request, 'mainapp/login.html')
 
 
 def LogOut(request):
@@ -51,7 +82,7 @@ def LogOut(request):
     return redirect('login')
 
 def Dashboard(request):
-    return render(request, 'profile.html')
+    return render(request, 'mainapp/profile.html')
 
 
 
