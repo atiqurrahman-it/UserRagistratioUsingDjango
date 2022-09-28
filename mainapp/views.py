@@ -1,9 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
 from .forms import UserRgistrationForm
-from django.contrib.auth.models import User
-from django.contrib import messages
 
 # Create your views here.
 
@@ -47,7 +47,7 @@ def SingUp(request):
             
           
         else:
-            messages.info(request,'password not matching ')
+            messages.info(request,'Password Not Matching ,please try again ! ')
             # return redirect('register')
 
 
@@ -72,11 +72,11 @@ def Login(request):
          # is_activate is ture then login 
         if user is not None:
             login(request, user)
-            messages.success(request, 'successfully Login your account .')
+            messages.success(request, 'Successfully Login your account .')
             return redirect('dashboard')
         # Redirect to a success page.
         else:
-            messages.error(request, 'email or password not match . please try again !')
+            messages.error(request, 'Email or Password not match . please try again !')
             return redirect('login')
     
     return render(request, 'mainapp/login.html')
@@ -85,10 +85,10 @@ def Login(request):
 def LogOut(request):
     if request.user.is_authenticated:
         logout(request)
-        messages.error(request, 'successfully login out  !')
+        messages.success(request, 'successfully logout !')
         return redirect('login')
     else:
-        messages.warning(request, 'please login after logout !')
+        messages.warning(request, 'Please login before logging out! !')
         return redirect('login')
      
   
