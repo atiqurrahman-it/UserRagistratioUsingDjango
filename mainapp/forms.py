@@ -15,7 +15,7 @@ class UserRgistrationForm(forms.ModelForm):
 
 
     password =forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter New Password','class': 'form-control'}))
-    confrim_password=forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter New  confrim_password','class': 'form-control'}))
+    confrim_password=forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter  confrim_password','class': 'form-control'}))
 
 
     class Meta:

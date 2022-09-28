@@ -8,7 +8,10 @@ from django.contrib import messages
 # Create your views here.
 
 def SingUp(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are already registerUser !')
+        return redirect('dashboard')
+    elif request.method == 'POST':
         form = UserRgistrationForm(request.POST)
 
         first_name=request.POST['first_name']
@@ -58,7 +61,10 @@ def SingUp(request):
 
 
 def Login(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are already Login !')
+        return redirect('dashboard')
+    elif request.method == 'POST':
         username=request.POST['username']
         password=request.POST['password']
         user = authenticate(request, username=username, password=password)
@@ -77,9 +83,15 @@ def Login(request):
 
 
 def LogOut(request):
-    logout(request)
-    # messages.error(request, 'successfully login out  !')
-    return redirect('login')
+    if request.user.is_authenticated:
+        logout(request)
+        messages.error(request, 'successfully login out  !')
+        return redirect('login')
+    else:
+        messages.warning(request, 'please login after logout !')
+        return redirect('login')
+     
+  
 
 def Dashboard(request):
     return render(request, 'mainapp/profile.html')

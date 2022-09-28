@@ -15,31 +15,32 @@
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
           <div class="card">
             <div class="card-body p-5">
-               <!-- load  message -->
-              {% include  'include_page/messageshow.html' %}
-
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+
+                <!-- load  message -->
+                {% include  'include_page/messageshow.html' %}
 
               <form action='{% url 'login' %}' method="POST" >
                 {% csrf_token %} 
+             
 
              <div class="form-outline mb-4">
-                  <input type="text" name='username' id="form3Example1cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example1cg">Your UserName</label>
+                  <input type="text" name='username' id="form3Example1cg" class="form-control form-control-lg" required />
+                  <label class="form-label" for="form3Example1cg">Username</label>
               </div>
 
               <div class="form-outline mb-4">
-                <input type="password" name='password' id="form3Example4cg" class="form-control form-control-lg" />
+                <input type="password" name='password' id="form3Example4cg" class="form-control form-control-lg" required />
                 <label class="form-label" for="form3Example4cg">Password</label>
               </div>
         
                 <div class="d-flex justify-content-center">
-                  <input type="submit" value="Submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">>
+                  <input type="submit" value="Submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
                   
                 </div>
 
-                <p class="text-center text-muted mt-5 mb-0">Dont Have  an account? <a href="{% url 'ragistration' %}"
-                    class="fw-bold text-body"><u>SingUp here</u></a></p>
+                <p class="text-center text-muted mt-5 mb-0">Don't Have  an account? <a href="{% url 'ragistration' %}"
+                    class="fw-bold text-body"><u>SingUp</u></a></p>
 
               </form>
 

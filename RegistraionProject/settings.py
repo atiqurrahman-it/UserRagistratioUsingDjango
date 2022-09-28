@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+
+import django_heroku
+
 import os
 from pathlib import Path
 
@@ -121,6 +124,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "mainapp/static"),
     # or 'HomePage_app/static'
 ]
+
+
+# Enable WhiteNoise's GZip compression of static assets.
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # py manage.py collectstatic
 
@@ -135,4 +144,8 @@ MESSAGE_TAGS = {
     messages.INFO: 'info',
     messages.ERROR: 'danger',
     messages.SUCCESS: 'success',
+    messages.WARNING:'warning',
 }
+
+#last e add hobe 
+django_heroku.settings(locals())
