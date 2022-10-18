@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %} Login Page {% endblock title %}
+
+{% block mystyle %}
+{% endblock mystyle %}
+
+
 <!-- main_contant   -->
 {% block main_contant %}
 
@@ -40,7 +45,22 @@
                 </div>
 
                 <p class="text-center text-muted mt-5 mb-0">Don't Have  an account? <a href="{% url 'ragistration' %}"
-                    class="fw-bold text-body"><u>SingUp</u></a></p>
+                    class="fw-bold text-body"><u>SingUp</u></a>
+                </p>
+
+
+                <div class="container mt-3 d-flex justify-content-center">
+                  <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-lg btn-social btn-facebook">
+                  <i class="fa fa-facebook fa-fw"></i> Login with Facebook 
+                  </a>
+                </div>
+
+                <div class="container mt-3 d-flex justify-content-center">
+                  <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-lg btn-social btn-google">
+                  <i class="fa fa-google-plus"></i> Login  with Google
+                  </a>
+                </div>
+
 
               </form>
 

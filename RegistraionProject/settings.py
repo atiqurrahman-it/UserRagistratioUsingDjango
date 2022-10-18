@@ -10,10 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-import django_heroku
-
 import os
 from pathlib import Path
+
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Social Auth login 
+    'social_django',
+
     'mainapp'
 ]
 
@@ -51,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     # Social Auth login 
+    'social_django.middleware.SocialAuthExceptionMiddleware',  
 ]
 
 ROOT_URLCONF = 'RegistraionProject.urls'
@@ -66,10 +72,26 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Social Auth login 
+                'social_django.context_processors.backends',  
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+# Social Auth login 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+# ----------
 
 WSGI_APPLICATION = 'RegistraionProject.wsgi.application'
 
@@ -116,6 +138,16 @@ USE_I18N = True
 USE_TZ = True
 
 
+# Social Auth login 
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'login'
+
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -146,6 +178,15 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'success',
     messages.WARNING:'warning',
 }
+
+
+# Social Auth login 
+SOCIAL_AUTH_FACEBOOK_KEY = '814098893125639'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '2e174c2d38f35680bddfd272be02a11a'  # App Secret
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '665301615080-vuv54rqfj72atbpnm6rl44vmeuliejk5.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
 
 #last e add hobe 
 django_heroku.settings(locals())

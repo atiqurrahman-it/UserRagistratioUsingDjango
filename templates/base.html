@@ -8,6 +8,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Bootstrap CSS -->
     <link
@@ -19,12 +21,19 @@
     <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
 
     <title> {% block title %} {% endblock title %} </title>
+
+    <style>
+      {% block mystyle %}
+      {% endblock mystyle %}
+    </style>
+
   </head>
   <body>
    <!-- load Header Heare -->
     {% include 'include_page/navbar.html' %}
 
     {% block main_contant %}
+    <h1> atiqur rahasfsdsdfdsfs </h1>
     <!-- main_contant   -->
     {% endblock %}  
 
